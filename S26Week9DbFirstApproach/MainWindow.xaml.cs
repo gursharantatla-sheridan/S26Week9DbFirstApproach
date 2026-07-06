@@ -45,5 +45,36 @@ namespace S26Week9DbFirstApproach
         {
             LoadStudents();
         }
+
+        private void btnFind_Click(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(txtId.Text);
+            var std = db.Students.Find(id);
+
+            if (std != null)
+            {
+                txtName.Text = std.StudentName;
+                cmbStandard.SelectedValue = std.StandardId;
+            }
+            else
+            {
+                txtName.Text = "";
+                cmbStandard.SelectedIndex = -1;
+                MessageBox.Show("Invalid ID. Please try again");
+            }
+        }
+
+        private void btnInsert_Click(object sender, RoutedEventArgs e)
+        {
+            Student std = new Student();
+            std.StudentName = txtName.Text;
+            std.StandardId = (int)cmbStandard.SelectedValue;
+
+            db.Students.Add(std);
+            db.SaveChanges();
+
+            LoadStudents();
+            MessageBox.Show("New student added");
+        }
     }
 }
