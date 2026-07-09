@@ -101,5 +101,20 @@ namespace S26Week9DbFirstApproach
             LoadStudents();
             MessageBox.Show("Student deleted");
         }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            // LINQ - Language Integrated Query
+
+            // query syntax
+            var students = (from s in db.Students
+                           where s.StudentName.Contains(txtName.Text)
+                           select s).ToList();
+
+            // method syntax
+
+
+            grdStudents.ItemsSource = students;
+        }
     }
 }
