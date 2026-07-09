@@ -28,7 +28,11 @@ namespace S26Week9DbFirstApproach
 
         private void LoadStudents()
         {
-            var students = db.Students.ToList();
+            //var students = db.Students.ToList();
+
+            var students = (from s in db.Students
+                           select new { s.StudentId, s.StudentName, s.Standard.StandardName }).ToList();
+
             grdStudents.ItemsSource = students;
         }
 
@@ -107,12 +111,24 @@ namespace S26Week9DbFirstApproach
             // LINQ - Language Integrated Query
 
             // query syntax
-            var students = (from s in db.Students
-                           where s.StudentName.Contains(txtName.Text)
-                           select s).ToList();
+            //var students = (from s in db.Students
+            //               where s.StudentName!.Contains(txtName.Text)
+            //               select s).ToList();
 
             // method syntax
+            var students = db.Students.Where(s => s.StudentName!.Contains(txtName.Text)).ToList();
 
+
+            grdStudents.ItemsSource = students;
+        }
+
+        private void cmbStandard_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int stdId = (int)cmbStandard.SelectedValue;
+
+            var students = (from s in db.Students
+                            where s.StandardId == stdId
+                            select s).ToList();
 
             grdStudents.ItemsSource = students;
         }

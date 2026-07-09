@@ -12,6 +12,7 @@ public partial class Student
 
     public int? StandardId { get; set; }
 
+
     // navigation properties
     public virtual Standard? Standard { get; set; }
 
