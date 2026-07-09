@@ -89,5 +89,17 @@ namespace S26Week9DbFirstApproach
             LoadStudents();
             MessageBox.Show("Student updated");
         }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            int id = int.Parse(txtId.Text);
+            var std = db.Students.Find(id);
+
+            db.Students.Remove(std);
+            db.SaveChanges();
+
+            LoadStudents();
+            MessageBox.Show("Student deleted");
+        }
     }
 }
